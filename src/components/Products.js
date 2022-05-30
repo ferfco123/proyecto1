@@ -17,12 +17,25 @@ const Item = styled(Paper)(({ theme }) => ({
 
  const  Products = function() {
    
-  const {datos,error,isLoading}=useAxios(`http://localhost:8000/team`);
+  const {datos,error,isLoading}=useAxios(`http://localhost:8000/productos`);
   
   console.log("axios")
-  console.log(datos.productos)
+  console.log(datos)
     
-  return (console.log("w")
+  return (
+    <div style={{ padding : "100px"}}>
+      {datos.map((prod)=>{ <div key={prod.id}><h3 key={prod.id}>{prod.name}</h3>
+      <p>$ {prod.price}</p>
+      
+      </div>})}
+
+
+
+
+
+
+
+    </div>
    
    
     
