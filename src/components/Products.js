@@ -15,50 +15,46 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
- const  Products = function() {
+ export default function   Products  () {
    
   const {datos,error,isLoading}=useAxios(`http://localhost:8000/productos`);
   
-  console.log("axios")
-  console.log(datos)
+  
     
   return (
-    <div style={{ padding : "100px"}}>
-      {datos.map((prod)=>{ <div key={prod.id}><h3 key={prod.id}>{prod.name}</h3>
-      <p>$ {prod.price}</p>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        {error && <p>Error - {error}</p>}
+        {!error && isLoading &&<p>Cargando </p>}
+        {!error && !isLoading && datos.length > 0 && ({ datos.map((product)=>(
+          <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Product key={product.id} product={product} />
+          </Grid>))
+
+        
+
+
+
+        })}
+
+
+
+
       
-      </div>})}
-
-
-
-
-
-
-
-    </div>
-   
-   
-    
-    /*<Box sx={{ flexGrow: 1 }}>
-     <Grid container spacing={2}>{
-         
-         <Grid item xs={12} sm={6} md={4} lg={3}>
-            
-          <Product key={product.id} product={product}></Product>
-         </Grid>     
-
-        
-
-
-      }
         
         
-        
-
-
       </Grid>
-    </Box>*/
+    </Box>
+    
+
+
+
+
+
+
+
+    
   );
 }
 
-export default Products
+

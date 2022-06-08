@@ -8,14 +8,16 @@ import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import ShareIcon from '@mui/icons-material/Share';
+
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
-import { ClassNames } from '@emotion/react';
+
+
+
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import accounting from "accounting";
+import { actionTypes } from '../reducer';
+import { useStateValue} from "../StateProvider"
 
 
 
@@ -34,12 +36,28 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function Product({product : {id,name, productType,image,price,rating, desciption}}) {
+export default function Product({product : {id,name,productType,image,price,rating,desciption}}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const [{basket}, dispatch ]= useStateValue()
+  const addToBasket =  ()=>{
+ dispatchEvent({
+   Type: actionTypes.ADD_TO_BASKET,
+   item:{
+     id: id,
+    name:name,
+    productType: productType,
+    image: image,
+    price:price,
+    rating: rating,
+    description: desciption,
+
+  }
+ })
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -54,7 +72,7 @@ export default function Product({product : {id,name, productType,image,price,rat
           </Typography>
         }
         title={name}
-        subheader="128GB"
+        subheader="in stock"
       />
       <CardMedia
         component="img"
@@ -69,7 +87,7 @@ export default function Product({product : {id,name, productType,image,price,rat
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={addToBasket}>
           <AddShoppingCartIcon fontSize="large" />
         </IconButton>
         <IconButton aria-label="share">
@@ -90,10 +108,8 @@ export default function Product({product : {id,name, productType,image,price,rat
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            {desciption}
-          </Typography>
+          <Typography paragraph>{desciption}</Typography>
+          
           
           
         </CardContent>

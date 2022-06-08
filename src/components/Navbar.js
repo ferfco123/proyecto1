@@ -1,44 +1,71 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import emblema from '../assets/emblema.jpg';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Badge } from '@mui/material';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import emblema from "../assets/emblema.jpg";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Badge } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
+import { auth } from "../fireBase";
+import { actionTypes } from "../reducer";
+import { useHistory } from "react-router-dom";
 
 export default function Navbar() {
+  const [{ basket, user }, dispatch] = useStateValue();
+  const history = useHistory();
+  const handleOut = () => {
+    if (user) {
+      auth.signOut();
+      dispatch({ Type: actionTypes.EMPTY_BASKET, basket: [] });
+      dispatch({ Type: actionTypes.SET_USER, user: null });
+      history.push("/");
+    }
+    
+    
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="sticky">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <img src={emblema} style={{height:"4rem"}}/>
-          </IconButton>
-          <Typography variant="h6" color="textPrimary" component="p" sx={{ flexGrow: 1 }}>
-            Hello Guest
-          </Typography>
-          <div Style={{ marginLeft: "auto", flexGrow:1}}> <Button variant="containded">
-              <strong>Sign in</strong>
-              </Button>
-              <IconButton aria-label='show cart items'> 
-              <Badge badgeContent={2} color="secondary">
+          <Link to="/welcome">
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <img src={emblema} alt="" style={{ height: "4rem" }} />
+            </IconButton>
+          </Link>
 
-              <AddShoppingCartIcon  fontSize='large' ></AddShoppingCartIcon>
-              </Badge>
+          <Typography
+            variant="h6"
+            color="textPrimary"
+            component="p"
+            sx={{ flexGrow: 1 }}
+          >
+            Hello {user ? user.email : "guest"}
+          </Typography>
+          <div style={{ marginLeft: "auto", flexGrow: 1 }}>
+            <link to="/sign-in">
+              <Button variant="containded" onClck={handleOut}>
+                <strong>{user ? "sign out" : "sign in"}</strong>
+              </Button>
+            </link>
+
+            <Link to="/checkout-page">
+              <IconButton aria-label="show cart items">
+                <Badge badgeContent={basket?.length} color="secondary">
+                  <AddShoppingCartIcon fontSize="large"></AddShoppingCartIcon>
+                </Badge>
               </IconButton>
-              
-              
-              
-              </div>
+            </Link>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
