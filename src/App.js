@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import { auth } from "./fireBase";
 import { actionTypes } from "./reducer";
 import { useStateValue} from "./StateProvider"
-import Checkout from "./components/checkOutForm/CheckOut";
+import CheckOut from "./components/checkOutForm/CheckOut";
 
 
 function App() {

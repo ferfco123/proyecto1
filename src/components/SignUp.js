@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as RouteLink, useHistory} from "react-router-dom"
+import { Link as RouteLink, useNavigate} from "react-router-dom"
 import {useState} from "react"
 import {auth} from "../fireBase"
 function Copyright(props) {
@@ -39,9 +39,9 @@ export default function SignUp() {
       password: data.get('password'),
     });
   };
-  const history = useHistory()
+  const history = useNavigate()
   const [email, setEmail]=useState("")
-  const [password, setPassword]= usestate("")
+  const [password, setPassword]= useState("")
   const signup= (e)=>{e.preventDefault()
   auth.createUserWithemailAndPassword(email,password).then((auth)=> {if(auth){ history.push("/")}}).catch(err=>alert(err.message))}
   return (

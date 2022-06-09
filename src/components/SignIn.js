@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as RouteLink, useHistory} from "react-router-dom"
+import { Link as RouteLink, useNavigate} from "react-router-dom"
 import {useState} from "react";
 import { auth } from '../fireBase';
 
@@ -43,7 +43,7 @@ export default function SignIn() {
   };
   const [email, setEmail]= useState("");
   const[password,setPassword]=useState("");
-  const history = useHistory();
+  const history = useNavigate();
   const signin = (e)=>{ e.preventDefault();
   auth.signInWithEmailAndPasswrd(email, password).then((auth)=>history.push("/")).catch(err=> alert(err.message))}
 

@@ -26,16 +26,16 @@ const Item = styled(Paper)(({ theme }) => ({
       <Grid container spacing={2}>
         {error && <p>Error - {error}</p>}
         {!error && isLoading &&<p>Cargando </p>}
-        {!error && !isLoading && datos.length > 0 && ({ datos.map((product)=>(
+        {!error && !isLoading && datos.length > 0 && (datos.map((product)=>(
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Product key={product.id} product={product} />
           </Grid>))
 
-        
+          
 
 
 
-        })}
+        )}
 
 
 

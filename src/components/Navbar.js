@@ -12,11 +12,11 @@ import { Link } from "react-router-dom";
 import { useStateValue } from "../StateProvider";
 import { auth } from "../fireBase";
 import { actionTypes } from "../reducer";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [{ basket, user }, dispatch] = useStateValue();
-  const history = useHistory();
+  const history = useNavigate();
   const handleOut = () => {
     if (user) {
       auth.signOut();
