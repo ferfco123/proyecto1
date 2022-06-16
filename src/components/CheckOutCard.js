@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 
 import CardActions from '@mui/material/CardActions';
 
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton /* { IconButtonProps }*/ from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 
@@ -21,11 +21,9 @@ import { useStateValue} from "../StateProvider"
 import { actionTypes } from '../reducer';
 
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
+
+const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
