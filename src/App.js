@@ -1,53 +1,62 @@
 import "./App.css";
-
-/*import useAxios from './hooks/useAxios';*/
-
+import React from "react"
+/*import Product from "./components/Product";*/
 import Navbar from "./components/Navbar";
 import Products from "./components/Products";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import CheckOutPage from "./components/CheckOutPage";
+import {
+  
+  Routes,
+  Route,
+  
+} from "react-router-dom"; 
+import CheckOutPage from "./components/CheckOutPage"
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import { useEffect } from "react";
+import {useEffect} from "react"
 import { auth } from "./fireBase";
-import { actionTypes } from "./reducer";
-import { useStateValue} from "./StateProvider"
-import CheckOut from "./components/checkOutForm/CheckOut";
 
+import { actionsTypes } from "./reducer";
+import { useStatevalue } from "./components/StateProvider";
+import Checkout from "./components/checkOutForm/Checkout";
 
 function App() {
-  const [{user}, dispatch ]= useStateValue();
-  useEffect(() => {
-    auth.onAuthStateCahnge((authUser)=>{if(authUser){dispatch({Type: actionTypes.SET_USER,
-     user:authUser,})}})
-  }, []);
+
+  const  dispatch= useStatevalue()
+  useEffect(()=>{
+    auth.onAuthStateChanged((authUser)=>{if(authUser){dispatch({type: actionsTypes.SET_USER,
+                                                                       user:authUser,})}})
+  },[])
+
 
   return (
-    <Router>
-      <>
-        <Navbar />
-        <Routes>
-          <Route path="/sign-in">
-            <SignIn />
-          </Route>
-          <Route path="/sign-up">
-            <SignUp />
-          </Route>
-          <Route path="/checkout-page">
-           <CheckOut/>
-          </Route>
-          <Route path="/checkout">
-            <CheckOutPage />
-          </Route>
-          <Route path="/">
-            <Products />
-          </Route>
-        </Routes>
-      </>
-    </Router>
+
+   
+     
+      <div  className="App">
+      
+      <Navbar/>
+      <Routes>
+      <Route path="/" element={<Products/>}/>
+      <Route path="/checkout-page" element={<CheckOutPage/>}/>
+      <Route path="/checkout" element={<Checkout/>}/>
+      <Route path="/SignIn" element={<SignIn/>}/>
+      <Route path="/SignUp" element={<SignUp/>}/>
+      </Routes>
+      
+      
+      
+
+     
+     
+      
+     
+    </div>
+
+    
   );
 }
+
+
+
 
 export default App;

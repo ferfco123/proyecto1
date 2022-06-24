@@ -6,25 +6,16 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-
-
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import accounting from "accounting";
-import { actionTypes } from '../reducer';
-import { useStateValue} from "../StateProvider"
-
-
-
-
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useStatevalue } from './StateProvider';
+import accounting from "accounting"
+import { actionsTypes } from '../reducer';
 
 const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
+  const { ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
@@ -34,67 +25,61 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Product({product : {id,name,productType,image,price,rating,desciption}}) {
+export default function Product({product:{ price, name, productType,rating,image,description}}) {
+ /* Eslint-disable React/prop-types */
   const [expanded, setExpanded] = React.useState(false);
-
+const  dispatch= useStatevalue();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const [{basket}, dispatch ]= useStateValue()
-  const addToBasket =  ()=>{
- dispatchEvent({
-   Type: actionTypes.ADD_TO_BASKET,
-   item:{
-     id: id,
-    name:name,
-    productType: productType,
-    image: image,
-    price:price,
-    rating: rating,
-    description: desciption,
 
-  }
- })
+  const addToBasket=()=>{
+    dispatch({
+      type:actionsTypes.ADD_TO_BASKET,
+      item:{
+        id:id,
+        name: name,
+        productType:productType,
+        image:image,
+        price:price,
+        description:description
+      }
+    })
   }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
+    <Card sx={{ maxWidth: 260}}>
+      <CardHeader 
         
         action={
-          <Typography 
-          variant = "h5"
-          color="text.secondary"
-          >
-            {accounting.formatMoney(price)}  
-          </Typography>
+         <Typography  variant="h5" color="textSecondary">
+
+                {accounting.formatMoney(price)}
+         </Typography>
         }
         title={name}
-        subheader="in stock"
+        subheader={productType}
       />
       <CardMedia
         component="img"
-        height="300"
-        
+        height="150"
         image={image}
         alt={name}
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-         {productType}
+      <CardContent style={{height:5}}>
+        <Typography fontWeight= "bold" color="text.secondary">
+         <h4>Caracteristicas:</h4>
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites" onClick={addToBasket}>
-          <AddShoppingCartIcon fontSize="large" />
+          <AddShoppingCartIcon fontSize="large"/>
         </IconButton>
-        <IconButton aria-label="share">
-          {Array(rating)
+        {Array(rating)
           .fill()
-          .map((_,i)=> ( <p>&#11088;</p>)
+          .map((_, i)=> (<p key={i}>&#11088;</p>)
               
           )}
-        </IconButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -106,10 +91,11 @@ export default function Product({product : {id,name,productType,image,price,rati
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>{desciption}</Typography>
+          <Typography paragraph>{description} </Typography>
           
           
           
+         
         </CardContent>
       </Collapse>
     </Card>

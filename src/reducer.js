@@ -1,50 +1,47 @@
-
-
-
 export const initialState={
-    basket:[],
-    user:null,
+  basket :[],
+user:null
 }
-export const  actionTypes={
+export const actionsTypes={
     ADD_TO_BASKET:"ADD_TO_BASKET",
     REMOVE_ITEM:"REMOVE_ITEM",
-    SET_USER:"SET_USER",
-    EMPTY_BASKET:"EMPTY_BASKET",
-}
-export const getBasketTotal =(basket)=>{
-
-    basket?.reduce((acc, item)=>{
-      return acc + item.price
-    },0)
+     SET_USER:"SET_USER",
+     EMPTY_BASKET:"EMPTY_BASKET",
 }
 
-const reducer  = (state, action)=>{
- switch(action.type){
+export const getBasketTotal=(basket)=>{
+  basket?.reduce((accu,item)=> item.price + accu,0)
+}
 
-    case "ADD_TO_BASKET":
+const reducer = (state,action)=>{
+
+    switch(action.type){
+      case "ADD_TO_BASKET":
         return{
-     ...state, basket:[...state.basket,action.item],
+            ...state,
+            basket:[...state.basket, action.item]
+        };
+      case "REMOVE_ITEM": 
+      const index = state.basket.findIndex((basketitem=> basketitem.id===action.id));
+      let newbasket = [...state.basket];
+      if (index >= 0){newbasket.splice(index,1)}
+      else{console.log("cant remove product")}
+      return {
+        ...state,
+        basket: newbasket,
 
-        }
-        case "REMOVE_ITEM":
-            const index =state.basket.findIndex((basketitem => basketitem.id === action.id))
-            let newBasket= [...state.basket]
-            if (index >=0 ){newBasket.splice(index,1)}
-            return{
-               ...state, 
-               basket: newBasket,
 
-            };
-            case "SET_USER":
-                return {...state, 
-                    user:action.user};
-                    case "EMPTY_BASKET":return {...state,
-                    basket: action.basket}
+      }
+      case "SET_USER":return{
+        ...state,
+        user:action.user
+      }
+      case " EMPTY_BASKET": return {...action, basket: action.basket}
+        default :return  state;
 
-        default: return state;
 
- }
-    
+    }
+
+
 }
-
 export default reducer

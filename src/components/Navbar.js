@@ -3,35 +3,36 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { useStatevalue } from "./StateProvider";
 import Button from "@mui/material/Button";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import IconButton from "@mui/material/IconButton";
+import { useNavigate } from "react-router-dom";
 import emblema from "../assets/emblema.jpg";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Badge } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
 import { auth } from "../fireBase";
-import { actionTypes } from "../reducer";
-import { useNavigate } from "react-router-dom";
+import { actionsTypes } from "../reducer";
 
 export default function Navbar() {
-  const [{ basket, user }, dispatch] = useStateValue();
   const history = useNavigate();
-  const handleOut = () => {
-    if (user) {
-      auth.signOut();
-      dispatch({ Type: actionTypes.EMPTY_BASKET, basket: [] });
-      dispatch({ Type: actionTypes.SET_USER, user: null });
-      history.push("/");
-    }
+  const [{ basket, user }, dispatch] = useStatevalue();
+
+
+  
+  const  handleAuth = ()=> {
+    auth.signOut().then(()=>{dispatch({type:actionsTypes.EMPTY_BASKET,
+      basket:[],}); dispatch({type:actionsTypes.SET_USER, user:null})}).catch(err => alert(err.message));
     
     
+  
+    history.push("/");
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="sticky">
+      <AppBar position="static">
         <Toolbar>
-          <Link to="/welcome">
+          <Link to="/">
             <IconButton
               size="large"
               edge="start"
@@ -39,29 +40,35 @@ export default function Navbar() {
               aria-label="menu"
               sx={{ mr: 2 }}
             >
-              <img src={emblema} alt="" style={{ height: "4rem" }} />
+              <img
+                src={emblema}
+                style={{ height: "4rem", borderRadius: "10px" }}
+              />
             </IconButton>
           </Link>
 
+          <div style={{ flexGrow: 1 }} />
           <Typography
             variant="h6"
-            color="textPrimary"
             component="p"
+            color="textPrimary"
             sx={{ flexGrow: 1 }}
           >
-            Hello {user ? user.email : "guest"}
+            hello {user ? user.email :"guest"}
           </Typography>
-          <div style={{ marginLeft: "auto", flexGrow: 1 }}>
-            <link to="/sign-in">
-              <Button variant="containded" onClck={handleOut}>
-                <strong>{user ? "sign out" : "sign in"}</strong>
+
+          <div color="textPrimary">
+            <Link to="/SignIn">
+              {" "}
+              <Button variant="cointained" onClick={handleAuth}>
+                <strong>{user ? "sign out" : " sign in"}</strong>
               </Button>
-            </link>
+            </Link>
 
             <Link to="/checkout-page">
-              <IconButton aria-label="show cart items">
+              <IconButton>
                 <Badge badgeContent={basket?.length} color="secondary">
-                  <AddShoppingCartIcon fontSize="large"></AddShoppingCartIcon>
+                  <ShoppingCartCheckoutIcon fontSize="large" />
                 </Badge>
               </IconButton>
             </Link>

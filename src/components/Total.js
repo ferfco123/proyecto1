@@ -1,41 +1,22 @@
-
-import accounting from "accounting"
+import * as React from 'react';
 import Button from '@mui/material/Button';
-import { styled } from "@mui/system";
-import { getBasketTotal } from "../reducer";
-import { useStateValue} from "../StateProvider"
+import { getBasketTotal } from '../reducer';
+import accounting from 'accounting';
+import { useStatevalue } from './StateProvider';
+import { Link } from 'react-router-dom';
 
-const useStyles = styled((them)=>({
-root:{
-    display: "flex",
-    flexDirection:"column",
-    justifyContent: "center",
-    alignItems:"center",
-    height: "20vh"
-},
-button:{
-marginTop: "2rem"
 
-}
-
-}
-))
 const Total =()=>{
-    const [{basket}, dispatch ]= useStateValue()
-    const classes = useStyles()
-return(<div className={classes.root}>
-    <h5>total items:{basket?.length}</h5>
-    <h5>{accounting.formatMoney(getBasketTotal(basket))}</h5>
-    <Button className={classes.button} variant="conteined" color="secondary">check out</Button>
-
-
-
-
-
-
-
+    const basket= useStatevalue();
+return (
+<div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", height:"20vh"}}>
+<h5>total items: {basket?.length}</h5>
+<h5>{accounting.formatMoney(getBasketTotal(basket),"u$s")}</h5>
+<Link to="/checkout"><Button variant="contained" color="secondary" style={{marginTop:"2rem"}}>check out</Button></Link>
 </div>
 
 )
+
 }
+
 export default Total
