@@ -5,12 +5,12 @@ import { useStatevalue } from './StateProvider';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 import Total from './Total';
-
+import CheckOutCard from "./CheckOutCard"
 
 
 
 export default function CheckOutPage() {
-  const [{basket}, dispatch]= useStatevalue();
+  const basket= useStatevalue();
     function FormRow(){
       return (
         <React.Fragment>

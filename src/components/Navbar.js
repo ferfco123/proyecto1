@@ -16,7 +16,7 @@ import { actionsTypes } from "../reducer";
 
 export default function Navbar() {
   const history = useNavigate();
-  const [{ basket, user }, dispatch] = useStatevalue();
+  const [ basket, user, dispatch] = useStatevalue();
 
 
   

@@ -15,10 +15,10 @@ import accounting from "accounting"
 import { useStatevalue } from './StateProvider';
 import { actionsTypes } from '../reducer';
 
-export default function CheckOutCard({item:{ price, name, productType,rating,image,description}}) {
+export default function CheckOutCard({item:{ price, name, productType,rating,image}}) {
  /* Eslint-disable React/prop-types */
   
- const [{basket}, dispatch]= useStatevalue();
+ const dispatch= useStatevalue();
 
  const removeItem = ()=> dispatch(
   {type:actionsTypes.REMOVE_ITEM,
