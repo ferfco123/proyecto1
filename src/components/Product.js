@@ -25,17 +25,19 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Product({product:{ price, name, productType,rating,image,description}}) {
+export default function Product({product:{id, price, name, productType,rating,image,description}}) {
  /* Eslint-disable React/prop-types */
   const [expanded, setExpanded] = React.useState(false);
-const  dispatch= useStatevalue();
+  // eslint-disable-next-line
+const  [basket,dispatch] = useStatevalue();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  
 
-  const addToBasket=()=>{
+  const addToBasket = () => {
     dispatch({
-      type:actionsTypes.ADD_TO_BASKET,
+      type: actionsTypes.ADD_TO_BASKET,
       item:{
         id:id,
         name: name,

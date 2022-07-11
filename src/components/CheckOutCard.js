@@ -15,7 +15,7 @@ import accounting from "accounting"
 import { useStatevalue } from './StateProvider';
 import { actionsTypes } from '../reducer';
 
-export default function CheckOutCard({item:{ price, name, productType,rating,image}}) {
+export default function CheckOutCard({item:{id, price, name, productType,rating,image}}) {
  /* Eslint-disable React/prop-types */
   
  const dispatch= useStatevalue();

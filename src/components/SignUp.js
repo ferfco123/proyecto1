@@ -37,7 +37,7 @@ export default function SignUp() {
 
     const signup = (e)=>{
       e.preventDefault();
-      auth.createUserWithEmailAndPassword(email, password).then((auth)=>{if(auth){history.push("/");}}).catch(err =>alert(err.message))
+      auth.createUserWithEmailAndPassword(email, password).then((auth)=>{if(auth){history("/");}}).catch(err =>alert(err.message))
 
     }
 

@@ -36,7 +36,7 @@ export default function SignIn() {
     const [password, setPassword] =useState("");
     const signin =(e)=>{
      e.preventDefault();
-     auth.signInWithEmailAndPassword(email, password).then(()=>history.push("/")).catch(err => alert(err.message))
+     auth.signInWithEmailAndPassword(email, password).then(()=>history("/")).catch(err => alert(err.message))
     }
 
   const handleSubmit = (event) => {

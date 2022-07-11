@@ -26,7 +26,7 @@ export default function Navbar() {
     
     
   
-    history.push("/");
+    history("/");
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -61,7 +61,7 @@ export default function Navbar() {
             <Link to="/SignIn">
               {" "}
               <Button variant="cointained" onClick={handleAuth}>
-                <strong>{user ? "sign out" : " sign in"}</strong>
+                <strong color="textPrimary">{user ? "sign out" : " sign in"}</strong>
               </Button>
             </Link>
 

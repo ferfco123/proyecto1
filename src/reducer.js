@@ -1,7 +1,8 @@
-export const initialState={
+export const initialState=[{
   basket :[],
-user:null
-}
+  user:null
+}]
+
 export const actionsTypes={
     ADD_TO_BASKET:"ADD_TO_BASKET",
     REMOVE_ITEM:"REMOVE_ITEM",
@@ -19,9 +20,9 @@ const reducer = (state,action)=>{
       case "ADD_TO_BASKET":
         return{
             ...state,
-            basket:[...state.basket, action.item]
+           basket:[...state.basket, action.item]
         };
-      case "REMOVE_ITEM": 
+      case "REMOVE_ITEM": {
       const index = state.basket.findIndex((basketitem=> basketitem.id===action.id));
       let newbasket = [...state.basket];
       if (index >= 0){newbasket.splice(index,1)}
@@ -31,7 +32,7 @@ const reducer = (state,action)=>{
         basket: newbasket,
 
 
-      }
+      }}
       case "SET_USER":return{
         ...state,
         user:action.user
