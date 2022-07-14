@@ -17,8 +17,9 @@ import { actionsTypes } from '../reducer';
 
 export default function CheckOutCard({item:{id, price, name, productType,rating,image}}) {
  /* Eslint-disable React/prop-types */
-  
- const dispatch= useStatevalue();
+ // eslint-disable-next-line
+ const  [{basket},dispatch] = useStatevalue();
+ 
 
  const removeItem = ()=> dispatch(
   {type:actionsTypes.REMOVE_ITEM,
@@ -33,7 +34,7 @@ export default function CheckOutCard({item:{id, price, name, productType,rating,
         action={
          <Typography  variant="h5" color="textSecondary">
 
-                {accounting.formatMoney(price)}
+                {accounting.formatMoney(price," u$s")}
          </Typography>
         }
         title={name}
