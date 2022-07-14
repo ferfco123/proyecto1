@@ -1,7 +1,8 @@
-export const initialState=[{
-  basket :[],
+export const initialState={
+basket:[],
   user:null
-}]
+}
+
 
 export const actionsTypes={
     ADD_TO_BASKET:"ADD_TO_BASKET",
@@ -10,10 +11,13 @@ export const actionsTypes={
      EMPTY_BASKET:"EMPTY_BASKET",
 }
 
-export const getBasketTotal=(basket)=>{
-  basket?.reduce((accu,item)=> item.price + accu,0)
-}
+export const getBasketTotal= (basket)=>{ return (
+  basket?.reduce( function (accu,item){  return accu + item.price},0 ))
+  
 
+  
+}
+console.log(getBasketTotal)
 const reducer = (state,action)=>{
 
     switch(action.type){
@@ -21,6 +25,7 @@ const reducer = (state,action)=>{
         return{
             ...state,
            basket:[...state.basket, action.item]
+          
         };
       case "REMOVE_ITEM": {
       const index = state.basket.findIndex((basketitem=> basketitem.id===action.id));
@@ -37,7 +42,7 @@ const reducer = (state,action)=>{
         ...state,
         user:action.user
       }
-      case " EMPTY_BASKET": return {...action, basket: action.basket}
+      case " EMPTY_BASKET": return {...state, basket: action.basket}
         default :return  state;
 
 

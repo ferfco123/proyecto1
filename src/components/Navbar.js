@@ -16,18 +16,19 @@ import { actionsTypes } from "../reducer";
 
 export default function Navbar() {
   const history = useNavigate();
-  const [ basket, user, dispatch] = useStatevalue();
+  // eslint-disable-next-line
+  const [ {basket, user}, dispatch] = useStatevalue();
 
 
   
-  const  handleAuth = ()=> {
+  const  handleAuth = ()=> {if(user){
     auth.signOut().then(()=>{dispatch({type:actionsTypes.EMPTY_BASKET,
       basket:[],}); dispatch({type:actionsTypes.SET_USER, user:null})}).catch(err => alert(err.message));
     
     
   
     history("/");
-  };
+  }};
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -54,14 +55,14 @@ export default function Navbar() {
             color="textPrimary"
             sx={{ flexGrow: 1 }}
           >
-            hello {user ? user.email :"guest"}
+            hello {user ? user.email :"Guest"}
           </Typography>
 
           <div color="textPrimary">
             <Link to="/SignIn">
               {" "}
               <Button variant="cointained" onClick={handleAuth}>
-                <strong color="textPrimary">{user ? "sign out" : " sign in"}</strong>
+                <strong color="textSecondary">{user ? "sign out" : " sign in"}</strong>
               </Button>
             </Link>
 

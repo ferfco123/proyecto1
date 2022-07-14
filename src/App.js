@@ -20,8 +20,9 @@ import { useStatevalue } from "./components/StateProvider";
 import Checkout from "./components/checkOutForm/Checkout";
 
 function App() {
-
-  const  dispatch= useStatevalue()
+// eslint-disable-next-line
+const  [{user},dispatch] = useStatevalue();
+  
   useEffect(()=>{
     auth.onAuthStateChanged((authUser)=>{if(authUser){dispatch({type: actionsTypes.SET_USER,
                                                                        user:authUser,})}})

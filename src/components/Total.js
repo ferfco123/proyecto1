@@ -7,10 +7,12 @@ import { Link } from 'react-router-dom';
 
 
 const Total =()=>{
-    const basket= useStatevalue();
+     // eslint-disable-next-line
+    const  [{basket},dispatch] = useStatevalue();
+   console.log(basket)
 return (
 <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", height:"20vh"}}>
-<h5>total items: {basket?.length}</h5>
+<h5>total items:{basket?.length}</h5>
 <h5>{accounting.formatMoney(getBasketTotal(basket),"u$s")}</h5>
 <Link to="/checkout"><Button variant="contained" color="secondary" style={{marginTop:"2rem"}}>check out</Button></Link>
 </div>

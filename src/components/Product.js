@@ -29,7 +29,7 @@ export default function Product({product:{id, price, name, productType,rating,im
  /* Eslint-disable React/prop-types */
   const [expanded, setExpanded] = React.useState(false);
   // eslint-disable-next-line
-const  [basket,dispatch] = useStatevalue();
+const  [{basket},dispatch] = useStatevalue();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -43,12 +43,14 @@ const  [basket,dispatch] = useStatevalue();
         name: name,
         productType:productType,
         image:image,
+        
         price:price,
         description:description
       }
     })
+  
   }
-
+  
   return (
     <Card sx={{ maxWidth: 260}}>
       <CardHeader 
@@ -56,7 +58,7 @@ const  [basket,dispatch] = useStatevalue();
         action={
          <Typography  variant="h5" color="textSecondary">
 
-                {accounting.formatMoney(price)}
+                {accounting.formatMoney(price, " u$s")}
          </Typography>
         }
         title={name}
